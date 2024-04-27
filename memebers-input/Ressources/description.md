@@ -1,6 +1,6 @@
 ### **first-test**
 
-try to write any basic SQL SELECT Statement input field vulnerable to SQL injection
+try to write any basic SQL SELECT Statement in members input field as it is vulnerable to SQL injection
 
 > You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select \*' at line 1
 
