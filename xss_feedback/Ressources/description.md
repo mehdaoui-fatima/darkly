@@ -10,10 +10,13 @@ Cross site scripting (XSS) is a common attack that injects malicious code into a
 - Stored XSS (Persistent XSS)
 - Reflected XSS (Non-Persistent XSS) 
 - DOM-Based XSS
-in our case is Reflected XSS.
-
-### What is Reflected XSS?
-
-file:///home/acus/Desktop/reflectedXSS.png
+In our case is Reflected XSS.
+We inject a script in a web application to the browser, through an URL parameter or an input form.
 
 ### what is <script> tag
+The < script> tag in HTML is an element that executes the JavaScript code it contains. 
+However, it can also be abused by attackers in XSS attacks through the injection of malicious JavaScript code.
+
+### References
+https://www.geeksforgeeks.org/what-is-cross-site-scripting-xss/
+
