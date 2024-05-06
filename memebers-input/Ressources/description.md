@@ -1,7 +1,16 @@
 ### Title: <span style="color:blue">SQL Injection Vulnerability in Members Input Field</span>
 
+SQL injection (SQLi) is a web security vulnerability that allows an attacker to interfere with the queries that an application makes to its database. This can allow an attacker to view data that they are not normally able to retrieve. This might include data that belongs to other users, or any other data that the application can access. In many cases, an attacker can modify or delete this data, causing persistent changes to the application's content or behavior.
+
 **Location:** `page=member`
 
+**Step 0:** 
+
+write any string in the input field; this SQL error will be thrown.
+```sql
+Unknown column 'test' in 'where clause'
+
+```
 **Step 1:** try to write any basic SQL SELECT Statement in members input field as it is vulnerable to SQL injection
 
 **Result:**
@@ -174,11 +183,21 @@ sh256 of fortytwo value: 10a16d834f9b1e4068b25c4c46fe0284e99e44dceaf08098fc83925
 
 the flag is : 10a16d834f9b1e4068b25c4c46fe0284e99e44dceaf08098fc83925ba6310ff5
 
+
+
+
 **Resources:**
 
-information_shema: https://dev.mysql.com/doc/mysql-infoschema-excerpt/8.3/en/information-schema-introduction.html
+information_shema: 
 
-MySQL Injection: https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MySQL%20Injection.md
-https://book.hacktricks.xyz/pentesting-web/sql-injection/mysql-injection
+* https://dev.mysql.com/doc/mysql-infoschema-excerpt/8.3/en/information-schema-introduction.html
 
-dCode: https://www.dcode.fr/identification-chiffrement
+MySQL Injection: 
+
+* https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MySQL%20Injection.md
+* https://book.hacktricks.xyz/pentesting-web/sql-injection/mysql-injection
+* https://portswigger.net/web-security/sql-injection
+
+dCode: 
+
+* https://www.dcode.fr/identification-chiffrement
