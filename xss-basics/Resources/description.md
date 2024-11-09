@@ -82,8 +82,8 @@ I continue testing with more advanced injection techniques, like:
 
 - Output result: 
 
-<img src="images/addLink.png" alt="Sample Image" width="800" height="800">
-<img src="images/alertLink.png" alt="Sample Image" width="800" height="800">
+<img src="images/addLink.png" alt="Sample Image" width="500" height="400">
+<img src="images/alertLink.png" alt="Sample Image" width="500" height="400">
 
 this injected code is not sanitized or escaped, the <a> tag is rendered directly into the page. When the user clicks the link, it triggers the onclick attribute and executes the alert('smthg') script.
 
