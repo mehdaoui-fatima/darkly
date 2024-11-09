@@ -45,8 +45,8 @@ Once I submitted the form, I expected to see the data displayed back to me in a 
 ```html 
 the <h1> tags were not escaped. Instead of showing the text <h1>this is a test</h1> as plain text, the browser rendered it as a heading 
 ```
-interpreting the HTML tags as actual code. This caused the text `this is a test` to appear as a Heading1 on the page,
-which is an indication that the form was allowing raw HTML tags to be inserted and rendered.
+interpreting the html tags as actual code. This caused the text `this is a test` to appear as a Heading1 on the page,
+which is an indication that the form was allowing raw html tags to be inserted and rendered.
  
 **Step 2:**
 
