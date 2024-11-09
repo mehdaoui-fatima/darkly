@@ -46,7 +46,7 @@ which is an indication that the form was allowing raw html tags to be inserted a
  
 **Step 2:**
 
-This behavior suggests a potential XSS vulnerability because the application did not properly sanitize or escape the HTML content submitted in the form. As a result, the browser was interpreting the <h1> tags as real HTML rather than displaying them as text.
+This behavior suggests a potential XSS vulnerability because the application did not properly sanitize or escape the HTML content submitted in the form. As a result, the browser was interpreting the h1 tags as real HTML rather than displaying them as text.
 so in this second step of my testing, I wanted to see if the form was vulnerable to JavaScript injection,To do this, I input the following into the form fields:
 
 - Input test : 
