@@ -41,10 +41,11 @@ Comment : test message
 ```
 
 Once I submitted the form, I expected to see the data displayed back to me in a safe, sanitized manner. However, in the Name field 
+
 ```html 
 the <h1> tags were not escaped. Instead of showing the text <h1>this is a test</h1> as plain text, the browser rendered it as a heading 
 ```
-interpreting the HTML tags as actual code. This caused the text `"this is a test"` to appear as a `Heading 1` on the page,
+interpreting the HTML tags as actual code. This caused the text `this is a test` to appear as a Heading1 on the page,
 which is an indication that the form was allowing raw HTML tags to be inserted and rendered.
  
 **Step 2:**
@@ -53,6 +54,7 @@ This behavior suggests a potential XSS vulnerability because the application did
 so in this second step of my testing, I wanted to see if the form was vulnerable to JavaScript injection,To do this, I input the following into the form fields:
 
 - Input test : 
+
 ```html
 * Name: <script>alert(1)</script>
 * Message: test message 
