@@ -1,4 +1,4 @@
-### Title: <span style="color:blue">xss: cross site scripting</span>
+### <span style="color:blue">xss: cross site scripting</span>
 
 
 **XSS definition:**
@@ -12,11 +12,6 @@ There are 3 main types of XSS attacks:
 * **Stored XSS**: In a stored XSS attack, the malicious code is stored on the server, and is executed every time the vulnerable page is accessed.
 
 * **DOM-based XSS**: is a type of XSS attack that occurs when a vulnerable web application modifies the DOM (Document Object Model) in the user's browser.
-
-- To prevent XSS attacks, it is important to properly validate and sanitize user input: ensuring that all input meets the necessary criteria.
-
-- removing any potentially dangerous characters or code. It is also important to escape special characters in user input before rendering it in the browser, to prevent the browser from interpreting it as code.
-
 
 **Step0:** `Submit the form`
 
@@ -114,6 +109,8 @@ Despite various attempts to demonstrate the vulnerability, the flag only appears
 
 
 **How to prevent**
+
+To prevent XSS attacks, it is important to:
 
 1- Verify Output Escaping: Ensure that all user input is escaped properly in all contexts (e.g., text, links, images) to prevent any HTML or JavaScript from executing. This includes handling attributes like onclick, onload, or onerror.
 
