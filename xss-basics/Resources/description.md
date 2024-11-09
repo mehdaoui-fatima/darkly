@@ -13,16 +13,18 @@ There are 3 main types of XSS attacks:
 
 * **DOM-based XSS**: is a type of XSS attack that occurs when a vulnerable web application modifies the DOM (Document Object Model) in the user's browser.
 
-**Step0:** 
+**Step 0:** 
 
-`Submit the form: ` 
+`Submit the form:`
+
 When filling in the `name` and `message` inputs, and then clicking the `submit` button, the submitted values are displayed on the page. After navigating to another page and then returning, the previously inserted values are still visible on the page. This means that all the previously submitted values are being stored and will be displayed to all users who access the page.
 While this behavior may seem normal, it can create a security vulnerability if the data is not properly sanitized before being displayed
 
 
-**Step1:** 
+**Step 1:** 
 
-`unsanitized inputs: `
+`unsanitized inputs:`
+
 let's try if we were able to inject `HTML` or `JavaScript` into the name or message fields, that code could be executed when other users view the page where the data is displayed. 
 started by inputting HTML tags into the form fields to see how the application handled them. I entered the following test data:
 
@@ -38,10 +40,14 @@ Name : THIS IS A TEST
 Comment : test message
 ```
 
-Once I submitted the form, I expected to see the data displayed back to me in a safe, sanitized manner. However, in the Name field ```html the <h1> tags were not escaped. Instead of showing the text <h1>this is a test</h1> as plain text, the browser rendered it as a heading ```, interpreting the HTML tags as actual code. This caused the text `"this is a test"` to appear as a `Heading 1` on the page,
+Once I submitted the form, I expected to see the data displayed back to me in a safe, sanitized manner. However, in the Name field 
+```html 
+the <h1> tags were not escaped. Instead of showing the text <h1>this is a test</h1> as plain text, the browser rendered it as a heading 
+``` 
+interpreting the HTML tags as actual code. This caused the text `"this is a test"` to appear as a `Heading 1` on the page,
 which is an indication that the form was allowing raw HTML tags to be inserted and rendered.
  
-**Step2:**
+**Step 2:**
 
 This behavior suggests a potential XSS vulnerability because the application did not properly sanitize or escape the HTML content submitted in the form. As a result, the browser was interpreting the <h1> tags as real HTML rather than displaying them as text.
 so in this second step of my testing, I wanted to see if the form was vulnerable to JavaScript injection,To do this, I input the following into the form fields:
@@ -62,7 +68,7 @@ Comment : test message
 
 - The Message field (test message) was displayed correctly as plain text without any issues, as expected.
 
-**Step3:**
+**Step 3:**
 
 there's still the possibility that not all attack vectors are covered.
 while <script> tags might be sanitized [partial protections, blocking only <script>], other methods of injecting JavaScript like event handler attributes, onerror, onload... , may still work if not properly sanitized and they can be used to execute JavaScript when an event is triggered.
