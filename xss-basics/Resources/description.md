@@ -65,20 +65,17 @@ Name : alert(1)
 Comment : test message 
 ```
 
-The input in the Name field (<script>alert(1)</script>) did not execute as JavaScript. Instead, it was displayed on the page as plain text: alert(1). This indicates that the script tags were sanitized or escaped to prevent them from being executed as JavaScript.
+- The input in the Name field (<script>alert(1)</script>) did not execute as JavaScript. Instead, it was displayed on the page as plain text: alert(1). This indicates that the script tags were sanitized or escaped to prevent them from being executed as JavaScript.
 
-The Message field (test message) was displayed correctly as plain text without any issues, as expected.
-
-
-
+- The Message field (test message) was displayed correctly as plain text without any issues, as expected.
 
 **Step3:**
-there's still the possibility that not all attack vectors are covered.
-while <script> tags might be sanitized, other methods of injecting JavaScript (like event handler attributes, onerror, onload, etc.) may still work if not properly sanitized and they can be used to execute JavaScript when an event is triggered,
-I continue testing with more advanced injection techniques, like:
 
-Event handler injections (<img src="x" onerror="alert(1)">)
-JavaScript via URL (<a href="javascript:alert(1)">Click here</a>) or (<a href="" onclick="alert('smthg')">link</a>)
+there's still the possibility that not all attack vectors are covered.
+while <script> tags might be sanitized [partial protections, blocking only <script>], other methods of injecting JavaScript like event handler attributes, onerror, onload... , may still work if not properly sanitized and they can be used to execute JavaScript when an event is triggered.
+I continue testing with more advanced injection techniques, like: 
+- Event handler injections <img src="x" onerror="alert(1)">
+- JavaScript via URL <a href="javascript:alert(1)">Click here</a> or <a href="" onclick="alert('smthg')">link</a>
 
 - Input test : 
 ```html
@@ -88,26 +85,41 @@ JavaScript via URL (<a href="javascript:alert(1)">Click here</a>) or (<a href=""
 
 - Output result: 
 
--> insert image 1
--> insert image 2
+![](images/addLink.png)
+![](images/alertLink.png)
+
+this injected code is not sanitized or escaped, the <a> tag is rendered directly into the page. When the user clicks the link, it triggers the onclick attribute and executes the alert('smthg') script.
 
 
 **last step**
 
-Script 
-Script 
-->
-flag 
+When inputting the word `script` directly into the `name` and `message` field without additional tags, it is detected as potentially dangerous. As a result, the XSS flag appears, 
+
+- Input test : 
+```html
+* Name: Script 
+* Message: Script 
+```
+
+- Output result: 
+```html 
 THE FLAG IS : 0FBB54BBF7D099713CA4BE297E1BC7DA0173D8B3C21C1811B916A3A86652724E
+```
 
 
+**Conclusion**
+
+
+Despite various attempts to demonstrate the vulnerability, the flag only appears when certain conditions are met—such as directly injecting `script` into specific fields like "name" or "message" or simply using the `<` character in the name input. These observations highlight that while some filtering methods are in place, they don’t fully prevent XSS vulnerabilities. it illustrates the importance of robust and comprehensive filtering to guard against potential XSS attacks.
 
 
 **How to prevent**
 
 1- Verify Output Escaping: Ensure that all user input is escaped properly in all contexts (e.g., text, links, images) to prevent any HTML or JavaScript from executing. This includes handling attributes like onclick, onload, or onerror.
 
-2- Use Libraries/Tools: Consider using specialized libraries client-side sanitization or server-side libraries to remove potentially dangerous content.
+2- Use Libraries/Tools: Consider using specialized libraries client-side sanitization or server-side libraries to remove potentially dangerous content. or using modern frameworks that have built-in protections against XSS by default. 
+
+3- HTML Encode Output: When displaying data from user inputs, encode it so that it renders as text rather than HTML or JavaScript. For example, convert < to &lt; and > to &gt;.
 
 
 **Resources**
