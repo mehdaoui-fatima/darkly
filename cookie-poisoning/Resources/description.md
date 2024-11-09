@@ -1,3 +1,4 @@
+
 ### Title: <span style="color:blue">Client-side cookie poisoning</span>
 
 **Attack description:**

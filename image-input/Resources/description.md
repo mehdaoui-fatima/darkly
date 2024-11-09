@@ -6,7 +6,7 @@ SQL injection (SQLi) is a web security vulnerability that allows an attacker to 
 
 **Step 0:** 
 
-write `1` in the input field; an SQL result will be thrown, which means that the `image input` field is vulnerable to SQL injectionß
+write `1` in the input field; an SQL result will be thrown, which means that the `image input` field is vulnerable to SQL injection
 
 ```sql
 ID: 1 

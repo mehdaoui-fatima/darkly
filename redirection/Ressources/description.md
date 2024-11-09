@@ -1,4 +1,4 @@
-# REDIRECTS
+# REDIRECTS ssrf
 
 ### How we find it?
 On the homepage, while inspecting the social network icons, we discovered the following HTML code:
