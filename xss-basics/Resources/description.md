@@ -71,8 +71,8 @@ Comment : test message
 there's still the possibility that not all attack vectors are covered.
 while <script> tags might be sanitized [partial protections, blocking only <script>], other methods of injecting JavaScript like event handler attributes, onerror, onload... , may still work if not properly sanitized and they can be used to execute JavaScript when an event is triggered.
 I continue testing with more advanced injection techniques, like: 
-- Event handler injections <img src="x" onerror="alert(1)">
-- JavaScript via URL <a href="javascript:alert(1)">Click here</a> or <a href="" onclick="alert('smthg')">link</a>
+- Event handler injections `<img src="x" onerror="alert(1)">`
+- JavaScript via URL `<a href="javascript:alert(1)">Click here</a> or <a href="" onclick="alert('smthg')">link</a>`
 
 - Input test : 
 ```html
