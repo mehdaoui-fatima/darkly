@@ -1,0 +1,19 @@
+{
+    "name": "readme-scraper",
+    "version": "1.0.0",
+    "description": "A simple project to scrape README files from a directory on a website",
+    "main": "file.js",
+    "type": "module",
+    "scripts": {
+      "start": "node file.js"
+    },
+    "dependencies": {
+      "got": "^12.0.0",
+      "cheerio": "^1.0.0-rc.12"
+    },
+    "devDependencies": {},
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+  
