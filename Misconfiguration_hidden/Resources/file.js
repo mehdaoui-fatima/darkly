@@ -37,7 +37,7 @@ async function traverseDirectory(baseUrl) {
 
 // Example usage
 (async () => {
-   const baseUrl = 'http://192.168.64.2/.hidden/';
+   const baseUrl = 'http://x.x.x.x/.hidden/';
 
     try {
         const allReadmes = await traverseDirectory(baseUrl);
