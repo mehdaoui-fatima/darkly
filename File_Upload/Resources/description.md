@@ -1,6 +1,6 @@
 # File Updaod
 
-### How We Found It
+### How We Found It ?
 
 On the upload page of the website, we found an option to upload files. To test its security, we uploaded a PHP file (`index.php`) disguised as an image by manipulating its MIME type to `image/jpeg`. This trick was done in a single request using the `-F` option in `curl`, which allows us to simulate a file upload by sending form data. By specifying the MIME type as `image/jpeg` using `;type=image/jpeg`, we made the server believe the file was a harmless image, even though it was actually executable PHP code.
 
@@ -14,7 +14,7 @@ To find the flag, we used the following `curl` command to upload a file to the s
 curl -X POST -F "Upload=Upload" -F 'uploaded=@index.php;type=image/jpeg' http://192.168.64.2/?page=upload | grep flag
 ```
 
-### How to Prevent This
+### How to Prevent ?
 
 1. **Validate File Content**  
    Check the actual file content to ensure it matches its declared type, not just the MIME type or file extension.
