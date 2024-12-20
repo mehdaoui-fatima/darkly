@@ -21,10 +21,12 @@ On the survey page `?page=survey`, there are multiple forms. Each form includes 
 	</select>
 </form>
 ```
+
 When updating the value of the option of a select for a bigger one (e.g. 1000000), and selecting this option, the server sends back a page containing the flag!
 
 ### How to prevent ?
-Always validate user input on the server side, as it can't be trusted.
+
+Always validate user input on the server side, as it can not be trusted.
 
 Users can change option values using browser developer tools or send modified requests from outside the browser.
 
